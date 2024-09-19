@@ -33,7 +33,7 @@ def download_file():
         driver.get("http://the-internet.herokuapp.com/download")
 
         # Step 2: Find the link to the file ('some-file.txt') and click it to start the download
-        file_link = driver.find_element(By.LINK_TEXT, 'some-file.txt')
+        file_link = driver.find_element(By.LINK_TEXT, 'LambdaTest.txt')
         file_link.click()
 
         # Step 3: Wait for the download to complete
