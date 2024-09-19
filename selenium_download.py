@@ -7,6 +7,7 @@ import json  # Library for parsing JSON data
 from selenium import webdriver  # WebDriver is used to automate browser actions
 from selenium.webdriver.common.by import By  # Library for finding elements by different strategies (like ID, XPATH, etc.)
 from selenium.webdriver.chrome.options import Options  # Allows us to customize Chrome browser settings for Selenium
+from webdriver_manager.chrome import ChromeDriverManager  # Automatically manage ChromeDriver versions
 
 # Define the download directory using an environment variable from GitHub Actions.
 # If the environment variable is not found, it falls back to '/default/path'
@@ -22,8 +23,8 @@ chrome_options.add_experimental_option("prefs", {
     "safebrowsing.enabled": True  # Enable safe browsing to avoid warnings on file downloads
 })
 
-# Initialize the Chrome WebDriver with the defined options
-driver = webdriver.Chrome(options=chrome_options)
+# Automatically download and set up the ChromeDriver using webdriver-manager
+driver = webdriver.Chrome(service=webdriver.chrome.service.Service(ChromeDriverManager().install()), options=chrome_options)
 
 # Function to download the file using Selenium
 def download_file():
