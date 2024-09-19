@@ -23,18 +23,18 @@ jobs:
       run: |
         pip install selenium pandas openpyxl
 
-    - name: Install Chrome and get ChromeDriver version
+    - name: Install Chrome and ChromeDriver
       run: |
+        # Install the latest version of Chrome
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
-        CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-        CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION)
-        if [ -z "$CHROMEDRIVER_VERSION" ]; then
-          echo "Unable to determine correct ChromeDriver version for Chrome $CHROME_VERSION"
-          exit 1
-        fi
-        curl -sS -o /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+        
+        # Download the latest ChromeDriver version compatible with the current Chrome
+        CHROME_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+        echo "Installing ChromeDriver version: $CHROME_DRIVER_VERSION"
+        curl -sS -o /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
         sudo unzip -o /tmp/chromedriver.zip -d /usr/local/bin/
+        sudo chmod +x /usr/local/bin/chromedriver
 
     - name: Run Selenium script to download and convert file
       run: |
