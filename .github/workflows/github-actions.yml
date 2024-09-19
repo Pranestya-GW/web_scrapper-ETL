@@ -22,6 +22,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install selenium pandas openpyxl
+        pip install webdriver-manager
 
     - name: Install Chrome and ChromeDriver
       run: |
